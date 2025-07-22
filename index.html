@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Obaidul Telecom Ltd | Link & Service Manager</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ==== তোমার আগের CSS ==== */
+
+    /* === CSS এখানে === */
+
+    /* Reset & Basic */
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1100px;
+      width: 90%;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      padding: 30px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin: auto;
+      min-height: 80vh;
+    }
+
+    header input[type="search"] {
+      width: 100%;
+      padding: 12px 18px;
+      font-size: 18px;
+      border-radius: 30px;
+      border: none;
+      outline: none;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 15px rgba(156,39,176,0.4);
+      color: #333;
+    }
+    header input[type="search"]::placeholder {
+      color: #666;
+    }
+
+    .form-add {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+    .form-add input {
+      flex-grow: 1;
+      padding: 12px 18px;
+      font-size: 18px;
+      border-radius: 30px;
+      border: none;
+      outline: none;
+      box-shadow: 0 4px 15px rgba(156,39,176,0.4);
+      color: #333;
+    }
+    .form-add button {
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      background: #9c27b0;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 6px 15px rgba(156, 39, 176, 0.6);
+      transition: background-color 0.3s ease;
+    }
+    .form-add button:hover {
+      background: #7b1fa2;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 25px;
+      justify-content: center;
+      align-content: start;
+      width: 100%;
+      max-width: 900px;
+      min-height: 300px;
+      overflow-y: auto;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      color: #222;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 140px;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+    .card h3 {
+      margin-bottom: 15px;
+      color: #333;
+      word-break: break-word;
+      font-size: 20px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-group button {
+      flex: 1;
+      padding: 10px 0;
+      font-weight: 600;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      font-size: 16px;
+      color: white;
+    }
+    .btn-delete {
+      background-color: #dc3545;
+    }
+    .btn-delete:hover {
+      background-color: #b02a37;
+    }
+    .btn-toggle {
+      background-color: #007bff;
+    }
+    .btn-toggle.active {
+      background-color: #28a745;
+    }
+    .btn-toggle:hover {
+      background-color: #0056b3;
+    }
+
+    /* Scrollbar for grid */
+    .grid-container::-webkit-scrollbar {
+      width: 10px;
+    }
+    .grid-container::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .grid-container::-webkit-scrollbar-thumb {
+      background: #9c27b0;
+      border-radius: 10px;
+    }
+    .grid-container::-webkit-scrollbar-thumb:hover {
+      background: #7b1fa2;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .grid-container {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+      }
+      .form-add input, .form-add button {
+        font-size: 16px;
+        padding: 10px 15px;
+      }
+    }
+
+
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1100px;
+      width: 90%;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      padding: 30px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin: auto;
+      min-height: 80vh;
+    }
+    header input[type="search"] {
+      width: 100%;
+      padding: 12px 18px;
+      font-size: 18px;
+      border-radius: 30px;
+      border: none;
+      outline: none;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 15px rgba(156,39,176,0.4);
+      color: #333;
+    }
+    header input[type="search"]::placeholder {
+      color: #666;
+    }
+    .form-add {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+    .form-add input {
+      flex-grow: 1;
+      padding: 12px 18px;
+      font-size: 18px;
+      border-radius: 30px;
+      border: none;
+      outline: none;
+      box-shadow: 0 4px 15px rgba(156,39,176,0.4);
+      color: #333;
+    }
+    .form-add button {
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      background: #9c27b0;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 6px 15px rgba(156, 39, 176, 0.6);
+      transition: background-color 0.3s ease;
+    }
+    .form-add button:hover {
+      background: #7b1fa2;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 25px;
+      justify-content: center;
+      align-content: start;
+      width: 100%;
+      max-width: 900px;
+      min-height: 300px;
+      overflow-y: auto;
+    }
+    .card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      color: #222;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 140px;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+    .card h3 {
+      margin-bottom: 15px;
+      color: #333;
+      word-break: break-word;
+      font-size: 20px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-group button {
+      flex: 1;
+      padding: 10px 0;
+      font-weight: 600;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      font-size: 16px;
+      color: white;
+    }
+    .btn-delete {
+      background-color: #dc3545;
+    }
+    .btn-delete:hover {
+      background-color: #b02a37;
+    }
+    .btn-toggle {
+      background-color: #007bff;
+    }
+    .btn-toggle.active {
+      background-color: #28a745;
+    }
+    .btn-toggle:hover {
+      background-color: #0056b3;
+    }
+    /* Scrollbar for grid */
+    .grid-container::-webkit-scrollbar {
+      width: 10px;
+    }
+    .grid-container::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .grid-container::-webkit-scrollbar-thumb {
+      background: #9c27b0;
+      border-radius: 10px;
+    }
+    .grid-container::-webkit-scrollbar-thumb:hover {
+      background: #7b1fa2;
+    }
+    /* Responsive */
+    @media (max-width: 480px) {
+      .grid-container {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+      }
+      .form-add input, .form-add button {
+        font-size: 16px;
+        padding: 10px 15px;
+      }
+    }
+    /* Sidebar styling */
+    nav.sidebar {
+      margin-bottom: 20px;
+    }
+    nav.sidebar ul {
+      list-style: none;
+      padding-left: 0;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    nav.sidebar ul li {
+      cursor: pointer;
+      background: #7b1fa2;
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-weight: 600;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    nav.sidebar ul li.active,
+    nav.sidebar ul li:hover {
+      background: #9c27b0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <button id="darkModeToggle">🌙 ডার্ক মোড</button>
+     <button ><h1 style="color: #28a745">Categories</h1></button>
+
+    <nav class="sidebar">
+      <ul id="categoryList">
+         <li ><a href="notice.html" style="color: azure;">📢 Noticeboard</a>
+</li>
+        <li class="active" data-category="all">All Links</li>
+        <li data-category="apps">Apps</li>
+        <li data-category="social">Social Media</li>
+        <li data-category="official">Official Pages</li>
+      </ul>
+    </nav>
+
+    <!-- লিঙ্ক সার্চ -->
+    <header>
+      <input
+        type="search"
+        id="linkSearchInput"
+        placeholder="🔍 লিঙ্ক সার্চ করুন..."
+        autocomplete="off"
+      />
+    </header>
+
+    <section id="linksGrid" class="grid-container"></section>
+  </div>
+
+  <div class="container" style="margin-top: 40px;">
+    <!-- সার্ভিস সার্চ -->
+    <header>
+      <input
+        type="search"
+        id="serviceSearchInput"
+        placeholder="🔍 সার্ভিস সার্চ করুন..."
+        autocomplete="off"
+      />
+    </header>
+
+    <!-- সার্ভিস এড ফর্ম -->
+    <form class="form-add" id="addServiceForm">
+      <input
+        type="text"
+        id="serviceNameInput"
+        placeholder="নতুন সার্ভিস লিখুন…"
+        required
+      />
+      <button type="submit">➕ Add</button>
+    </form>
+
+    <div class="grid-container" id="serviceList">
+      <!-- সার্ভিস কার্ড এখানে যোগ হবে -->
+    </div>
+  </div>
+
+  <script>
+
+  
+
+
+    // ==== LINKS PART ====
+
+    const links = [
+      { id: 1, title: 'Obaidul Telecom Ltd অ্যাপ', url: 'https://play.google.com/store/apps/details?id=com.fahimtelecombd.user', category: 'apps' },
+      { id: 2, title: 'অফিসিয়াল টেলিগ্রাম চ্যানেল', url: 'https://t.me/obaidultelecomltd', category: 'social' },
+      { id: 3, title: 'অফিসিয়াল হোয়াটসঅ্যাপ', url: 'https://wa.me/message/KBZXER5FBS2FN1', category: 'social' },
+      { id: 4, title: 'Obaidul Telecom ইউটিউব চ্যানেল', url: 'https://youtube.com/@obaidultelecomltd', category: 'social' },
+      { id: 5, title: 'Obaidul Telecom ফেসবুক পেইজ', url: 'https://www.facebook.com/obaidultelecomltd', category: 'social' },
+      { id: 6, title: 'Obaidul Telecom অফিসিয়াল ওয়েবসাইট', url: 'https://obaidultelecomltd.com', category: 'official' }
+    ];
+
+    const categoryList = document.getElementById('categoryList');
+    const linksGrid = document.getElementById('linksGrid');
+    const linkSearchInput = document.getElementById('linkSearchInput');
+
+    let activeCategory = 'all';
+
+    function renderLinks() {
+      const searchTerm = linkSearchInput.value.toLowerCase();
+
+      const filteredLinks = links.filter(link => {
+        return (activeCategory === 'all' || link.category === activeCategory) &&
+          link.title.toLowerCase().includes(searchTerm);
+      });
+
+      linksGrid.innerHTML = '';
+
+      if (filteredLinks.length === 0) {
+        linksGrid.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:#999;">কোনো লিঙ্ক পাওয়া যায়নি।</p>`;
+        return;
+      }
+
+      filteredLinks.forEach(link => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const title = document.createElement('h3');
+        title.textContent = link.title;
+
+        const linkBtn = document.createElement('a');
+        linkBtn.href = link.url;
+        linkBtn.target = '_blank';
+        linkBtn.rel = 'noopener noreferrer';
+        linkBtn.textContent = 'লিঙ্কে যান';
+
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = 'কপি করুন';
+
+        copyBtn.addEventListener('click', () => {
+          navigator.clipboard.writeText(link.url).then(() => {
+            copyBtn.textContent = 'কপি হয়েছে!';
+            setTimeout(() => (copyBtn.textContent = 'কপি করুন'), 2000);
+          });
+        });
+
+        card.appendChild(title);
+        card.appendChild(linkBtn);
+        card.appendChild(copyBtn);
+
+        linksGrid.appendChild(card);
+      });
+    }
+
+    // ক্যাটাগরি ক্লিক ইভেন্ট
+    categoryList.querySelectorAll('li').forEach(li => {
+      li.addEventListener('click', () => {
+        categoryList.querySelectorAll('li').forEach(item => item.classList.remove('active'));
+        li.classList.add('active');
+        activeCategory = li.getAttribute('data-category');
+        renderLinks();
+      });
+    });
+
+    linkSearchInput.addEventListener('input', renderLinks);
+
+    // প্রথম রেন্ডার
+    renderLinks();
+
+
+    // ==== SERVICES PART ====
+
+    const serviceList = document.getElementById('serviceList');
+    const addServiceForm = document.getElementById('addServiceForm');
+    const serviceNameInput = document.getElementById('serviceNameInput');
+    const serviceSearchInput = document.getElementById('serviceSearchInput');
+
+    let services = [];
+
+    function addService(name) {
+      if (!name.trim()) return;
+      // ডুপ্লিকেট চেক (ঐচ্ছিক)
+      const duplicate = services.some(s => s.name.toLowerCase() === name.trim().toLowerCase());
+      if (duplicate) {
+        alert('এই নামের সার্ভিস আগে থেকেই আছে!');
+        return;
+      }
+      const service = {
+        id: Date.now(),
+        name: name.trim(),
+        active: true
+      };
+      services.push(service);
+      renderServices();
+    }
+
+    function deleteService(id) {
+      services = services.filter(s => s.id !== id);
+      renderServices();
+    }
+
+    function toggleActive(id) {
+      const service = services.find(s => s.id === id);
+      if (service) {
+        service.active = !service.active;
+        renderServices();
+      }
+    }
+
+    function filterServices(query) {
+      return services.filter(s => s.name.toLowerCase().includes(query.toLowerCase()));
+    }
+
+    function renderServices() {
+      const query = serviceSearchInput.value.trim().toLowerCase();
+      const filtered = filterServices(query);
+
+      serviceList.innerHTML = '';
+      if (filtered.length === 0) {
+        serviceList.innerHTML = `<p style="color:#eee; text-align:center; width:100%;">কোনো সার্ভিস পাওয়া যায়নি।</p>`;
+        return;
+      }
+
+      filtered.forEach(service => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const title = document.createElement('h3');
+        title.textContent = service.name;
+        card.appendChild(title);
+
+        const btnGroup = document.createElement('div');
+        btnGroup.className = 'btn-group';
+
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'btn-toggle';
+        if (service.active) toggleBtn.classList.add('active');
+        toggleBtn.textContent = service.active ? 'Active' : 'Inactive';
+        toggleBtn.onclick = () => toggleActive(service.id);
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'btn-delete';
+        delBtn.textContent = 'Delete';
+        delBtn.onclick = () => {
+          if (confirm(`"${service.name}" সার্ভিসটি ডিলিট করবেন?`)) {
+            deleteService(service.id);
+          }
+        };
+
+        btnGroup.appendChild(toggleBtn);
+        btnGroup.appendChild(delBtn);
+
+        card.appendChild(btnGroup);
+        serviceList.appendChild(card);
+      });
+    }
+
+    addServiceForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = serviceNameInput.value;
+      if (name.trim() !== '') {
+        addService(name);
+        serviceNameInput.value = '';
+      }
+    });
+
+    serviceSearchInput.addEventListener('input', renderServices);
+
+    // ডেমো সার্ভিস
+    ['বাংলালিংক ফ্লেক্সিলোড', 'গ্রামীণফোন রিচার্জ', 'রবি ডেটা প্যাক', 'এয়ারটেল প্যাক', 'স্কিটো সার্ভিস'].forEach(addService);
+
+    // প্রথম রেন্ডার
+    renderServices();
+
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      if (document.body.classList.contains('dark-mode')) {
+        darkModeToggle.textContent = '☀️ লাইট মোড';
+      } else {
+        darkModeToggle.textContent = '🌙 ডার্ক মোড';
+      }
+    });
+  </script>
+</body>
+</html>
